@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var ratio = Ratio(markup: 0.300)
+    @State var ratio = Ratio(markup: 3.00)
     
     private let values1: [Double] = [20, 25, 50, 75, 100, 150].map { $0/100 }
     private let values2: [Double] = [200, 250, 300, 350, 400, 500].map { $0/100 }
     
     var body: some View {
         VStack(spacing: 16) {
+            Label {
+                Text("Three Ends".uppercased())
+            } icon: {
+                Image(systemName: "square.stack.3d.down.right.fill")
+            }
+            .foregroundColor(.orange)
+            .padding(.bottom)
+            
             VStack(spacing: 10) {
                 Text("Markup: \(ratio.markup * 100, specifier: "%.1f%%")")
                 Text("Margin: \(ratio.margin * 100, specifier: "%.1f%%")")
@@ -51,7 +59,9 @@ struct ContentView: View {
                 Spacer()
                 Text("Cost: \((1 - ratio.margin) * 100, specifier: "%.1f%%")")
             }
+            
             Slider(value: $ratio.margin, in: 0...0.9999999, step: 0.005)
+                .padding(.bottom)
         }
         .padding(.horizontal)
         .edgesIgnoringSafeArea(.all)
