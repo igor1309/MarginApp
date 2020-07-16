@@ -22,14 +22,17 @@ struct ContentView: View {
             }
             .foregroundColor(.orange)
             .padding(.bottom)
-            
-            VStack(spacing: 10) {
-                Text("Markup: \(ratio.markup * 100, specifier: "%.1f%%")")
-                Text("Margin: \(ratio.margin * 100, specifier: "%.1f%%")")
-                Text("Cost: \((1 - ratio.margin) * 100, specifier: "%.1f%%")")
+
+            HStack {
+                Spacer()
+                item(ratio.markup * 100, title: "Markup")
+                Spacer()
+                item(ratio.margin * 100, title: "Margin")
+                Spacer()
+                item((1 - ratio.margin) * 100, title: "cost")
+                Spacer()
             }
-            .font(.title)
-            
+                        
             Divider().padding(.vertical)
             
             Group {
@@ -65,6 +68,16 @@ struct ContentView: View {
         }
         .padding(.horizontal)
         .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func item(_ item: Double, title: String) -> some View {
+        VStack {
+            Text("\(item, specifier: "%.f%%")")
+                .font(.largeTitle)
+            Text(title.uppercased())
+                .foregroundColor(.secondary)
+                .font(.footnote)
+        }
     }
 }
 
